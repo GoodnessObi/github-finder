@@ -14,16 +14,9 @@ class UserItem extends Component {
   //   }
   // }
 
-  state = {
-        id: 'id',
-        login: "GoodnessObi",
-        avatar_url: "https://avatars.githubusercontent.com/u/50333058?v=4",
-        html_url: "https://github.com/GoodnessObi",
-      }
-
   render() {
     //destructing this.state so it wouldn't be written repeatedly
-    const { avatar_url, login, html_url } = this.state
+    const { avatar_url, login, html_url } = this.props.user
     
     return (
       <div className="card text-center">
