@@ -7,10 +7,12 @@ import axios from 'axios';
 import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
+import User from './components/users/User';
 
 class App extends Component {
   state = {
     users: [],
+    user: {},
     loading: false,
     alert: null
   }
@@ -24,9 +26,10 @@ class App extends Component {
   //    })
   // }
 
+  //Get Users from search parameter
   searchUsers = async text => {
-    console.log(text);
     this.setState({loading: true})
+
     const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`);
 
      this.setState({
@@ -35,6 +38,21 @@ class App extends Component {
      })
   }
 
+  //Get Single user details
+  getUser = async username => {
+    this.setState({loading: true})
+
+    console.log(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
+    
+    const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`);
+
+     this.setState({
+       user: res.data,
+       loading: false
+     })
+  }
+
+  //Clear users
   clearUsers = () => {
     this.setState({
       users: [],
@@ -42,6 +60,7 @@ class App extends Component {
     })
   }
 
+  //Set alert
   setAlert = (msg, type) => {
     this.setState({ alert: {msg, type} })
 
@@ -51,7 +70,7 @@ class App extends Component {
   }
 
   render () {
-    const { users, loading } = this.state
+    const { users, user, loading } = this.state
 
     return (
       <Router>
@@ -66,7 +85,11 @@ class App extends Component {
                 <Users loading={loading} users={users} />
               </Fragment>
             )} />
+             <Route exact path='/user/:login' render={props => (
+              <User {...props} getUser={this.getUser} user={user} loading={loading} />
+            )} />
             <Route exact path='/about' component={About} />
+
             </Switch>
           </div>
         </div>
