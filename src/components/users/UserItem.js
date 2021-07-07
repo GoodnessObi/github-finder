@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const UserItem = ({ user: { avatar_url, login, html_url }}) => {
-  //destructing this.state so it wouldn't be written repeatedly
+  //destructing this.props so it wouldn't be written repeatedly
   // const { avatar_url, login, html_url } = props.user
   
   return (
