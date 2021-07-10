@@ -22,10 +22,10 @@ const Navbar = ({ icon, title }) => {
 }
 
   // This would be used in the event that no prop is passed in
-  // Navbar.defaultProps = {
-  //   title: 'Github Finder',
-  //   icon: 'fab fa-github'
-  // }
+  Navbar.defaultProps = {
+    title: 'Github Finder',
+    icon: 'fab fa-github'
+  }
 
   //This defines the type of prop expected ex. array, string, object etc.
   Navbar.propTypes = {
